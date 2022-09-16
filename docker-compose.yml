@@ -1,19 +1,19 @@
-version: '3.8'
+version: '3'
 services:
   mongo:
     image: mongo
     restart: always
     volumes: 
-      - ./mongoData:/data/db
+      - ./mongo-data:/data/db
     env_file: .env
     ports: 
-      - 6539:27017
+      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     
   mongo-express:
-    image: mongo-express:0.49.0
+    image: mongo-express
     restart: always
     ports:
       - 8091:8081
@@ -24,3 +24,5 @@ services:
       ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USERNAME}
       ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD}
       ME_CONFIG_OPTIONS_EDITORTHEME: ambiance
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017
+
