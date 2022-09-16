@@ -1,28 +1,26 @@
 version: '3.8'
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    restart: unless-stopped
+  mongo:
+    image: mongo
+    restart: always
     volumes: 
-      - ./database-data:/data/db
+      - ./mongoData:/data/db
     env_file: .env
     ports: 
-      - "27017:27017"
+      - 6539:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-
+    
   mongo-express:
-    image: mongo-express:latest
-    restart: unless-stopped
+    image: mongo-express:0.49.0
+    restart: always
     ports:
-      - 8081:8081
+      - 8091:8081
     env_file: .env
-    depends_on:
-      - mongodb
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USERNAME}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD}
-      ME_CONFIG_MONGODB_SERVER: mongodb
-     
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD}
+      ME_CONFIG_OPTIONS_EDITORTHEME: ambiance
