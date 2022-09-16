@@ -10,6 +10,11 @@ import (
 
 func ConnectDB(ctx context.Context, config models.Configuration) *mongo.Database {
 
+	var cred options.Credential
+
+	cred.Username = config.MongoUsername
+	cred.Password = config.MongoPassword
+
 	clientOption := options.Client().ApplyURI(config.MongoServer)
 	client, err := mongo.Connect(ctx, clientOption)
 	if err != nil {
