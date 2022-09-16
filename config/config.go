@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/MohammadMobasher/resturan-backend/models"
 	"github.com/spf13/viper"
 )
@@ -14,6 +16,7 @@ func GetConfig() models.Configuration {
 	viper.AutomaticEnv()
 	err := viper.ReadInConfig() // Find and read the config file
 	if err != nil {             // Handle errors reading the config file
+		fmt.Println(err)
 		panic(err)
 	}
 
