@@ -22,7 +22,7 @@ func ValidationErrorToText(e validator.FieldError) string {
 	case "min":
 		return fmt.Sprintf("%s must be longer than %s", e.Field(), e.Param())
 	case "email":
-		return fmt.Sprintf("Invalid email format")
+		return "Invalid email format"
 	case "len":
 		return fmt.Sprintf("%s must be %s characters long", e.Field(), e.Param())
 	}
