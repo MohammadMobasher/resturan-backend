@@ -1,10 +1,13 @@
 package repositories
 
 import (
+	"log"
+
 	"github.com/MohammadMobasher/resturan-backend/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type IUserRepository interface {
@@ -25,10 +28,16 @@ func NewUserRepository() *UserRepository {
 	}
 }
 
-func (u *UserRepository) Insert(user models.User) models.User {
-	result, _ := u.db.Insert(user)
+func (u *UserRepository) Insert(user models.User) (*models.User, error) {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), 8)
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+	user.Password = string(hashedPassword)
+	result, err := u.db.Insert(user)
 	user.Id = result.InsertedID.(primitive.ObjectID)
-	return user
+	return &user, err
 }
 
 func (u *UserRepository) Delete(userId string) (bool, error) {
