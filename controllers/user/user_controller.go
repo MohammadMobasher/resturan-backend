@@ -9,18 +9,24 @@ import (
 )
 
 func CreateUser(c *gin.Context) {
-	user := models.User{}
+	var user models.User
 	err := c.ShouldBindJSON(&user)
+	if err != nil {
+		// c.JSON(http.StatusBadRequest, gin.H{"mmm1": err})
+		// log.Println("KKKKKKKKK%T", err.Error())
+		c.AbortWithError(http.StatusBadGateway, err)
+		return
+	}
+
+	userRepository := repositories.NewUserRepository()
+	reuslt, err := userRepository.Insert(user)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
 
-	userRepository := repositories.NewUserRepository()
-	user = userRepository.Insert(user)
-
-	c.IndentedJSON(http.StatusOK, user)
+	c.IndentedJSON(http.StatusOK, reuslt)
 }
 
 func DeleteUser(c *gin.Context) {
