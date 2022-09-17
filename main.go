@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/MohammadMobasher/resturan-backend/routes"
+	"github.com/MohammadMobasher/resturan-backend/routes/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,6 +16,7 @@ func main() {
 
 func createServer() {
 	r := gin.Default()
+	r.Use(middleware.ValidationErrors)
 	r.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "Homepage")
 	})
