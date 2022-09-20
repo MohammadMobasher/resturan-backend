@@ -1,14 +1,14 @@
 package routes
 
 import (
-	usercontroller "github.com/MohammadMobasher/resturan-backend/controllers/user"
+	"github.com/MohammadMobasher/resturan-backend/controllers"
 	"github.com/gin-gonic/gin"
 )
 
 func UserRoute(r *gin.Engine) {
-	r.GET("/users", usercontroller.GetUsers)
-	r.POST("/user", usercontroller.CreateUser)
-	r.PUT("/user", usercontroller.UpdateUsers)
-	r.GET("/user/:userId", usercontroller.GetUser)
-	r.DELETE("/user/:userId", usercontroller.DeleteUser)
+	r.GET("/users", controllers.GetUsers)
+	r.POST("/user", controllers.CreateUser)
+	r.PUT("/user", controllers.UpdateUsers)
+	r.GET("/user/:userId", controllers.GetUser)
+	r.DELETE("/user/:userId", controllers.DeleteUser)
 }
