@@ -21,6 +21,7 @@ func createServer() {
 		context.String(http.StatusOK, "Homepage")
 	})
 	routes.UserRoute(r)
+	routes.FoodGroupRoute(r)
 	r.Run()
 }
 
