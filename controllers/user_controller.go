@@ -12,8 +12,6 @@ func CreateUser(c *gin.Context) {
 	var user models.User
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
-		// c.JSON(http.StatusBadRequest, gin.H{"mmm1": err})
-		// log.Println("KKKKKKKKK%T", err.Error())
 		c.AbortWithError(http.StatusBadGateway, err)
 		return
 	}
