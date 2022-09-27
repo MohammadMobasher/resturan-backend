@@ -9,7 +9,7 @@ import (
 
 type IFoodGroupRepository interface {
 	GetAll() ([]models.FoodGroup, error)
-	Insert(foodGroup models.FoodGroup) models.User
+	Insert(foodGroup models.FoodGroup) models.FoodGroup
 	GetItem(foodGroupId string) (bool, error)
 	Delete(foodGroupId primitive.ObjectID) (bool, error)
 	Update(FoodGroupId models.FoodGroup) (*mongo.UpdateResult, error)
