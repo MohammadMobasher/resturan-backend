@@ -16,12 +16,16 @@ func main() {
 
 func createServer() {
 	r := gin.Default()
+	r.MaxMultipartMemory = 4 << 20 // 4 MiB
 	r.Use(middleware.ValidationErrors)
 	r.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "Homepage")
 	})
+	r.Static("/Content", "./uploaded_file")
 	routes.UserRoute(r)
 	routes.FoodGroupRoute(r)
+	routes.FoodRoute(r)
+	// r.GET("/swagger/*any", ginSwagger.wrapeHandler()s)
 	r.Run()
 }
 
