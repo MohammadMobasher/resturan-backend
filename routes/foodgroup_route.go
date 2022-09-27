@@ -7,8 +7,8 @@ import (
 
 func FoodGroupRoute(r *gin.Engine) {
 	r.GET("/foodgroup", controllers.GetFoodGroups)
-	// r.POST("/foodgroup", controllers.CreateFoodGroup)
-	// r.PUT("/foodgroup", controllers.UpdateFoodGroup)
-	// r.GET("/foodgroup/:foodgroupId", controllers.GetFoodGroup)
-	// r.DELETE("/foodgroup/:foodgroupId", controllers.DeleteFoodGroup)
+	r.POST("/foodgroup", controllers.CreateFoodGroup)
+	r.PUT("/foodgroup", controllers.UpdateFoodGroup)
+	r.GET("/foodgroup/:foodgroupId", controllers.GetFoodGroup)
+	r.DELETE("/foodgroup/:foodgroupId", controllers.DeleteFoodGroup)
 }
