@@ -38,6 +38,18 @@ paths:
       summary: create a user
       tags:
       - user
+    put:
+      consumes:
+      - '*/*'
+      description: put a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: put a user
+      tags:
+      - user
   /user/:userId:
     delete:
       consumes:

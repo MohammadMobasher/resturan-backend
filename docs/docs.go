@@ -44,6 +44,24 @@ const docTemplate = `{
                     }
                 }
             },
+            "put": {
+                "description": "put a user",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "put a user",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "post": {
                 "description": "create a user",
                 "consumes": [

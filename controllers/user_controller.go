@@ -68,6 +68,13 @@ func GetUsers(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, users)
 }
 
+// @Summary put a user
+// @Description put a user
+// @Tags user
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /user [put]
 func UpdateUsers(c *gin.Context) {
 	user := models.User{}
 	err := c.ShouldBindJSON(&user)
