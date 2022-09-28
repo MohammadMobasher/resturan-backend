@@ -86,6 +86,13 @@ func UpdateUsers(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, users)
 }
 
+// @Summary get a user
+// @Description get a user
+// @Tags user
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /user [get]
 func GetUser(c *gin.Context) {
 	userId := c.Param("userId")
 	userRepository := repositories.NewUserRepository()

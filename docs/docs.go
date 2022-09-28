@@ -26,6 +26,24 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/user": {
+            "get": {
+                "description": "get a user",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "get a user",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "post": {
                 "description": "create a user",
                 "consumes": [
