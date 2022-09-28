@@ -13,6 +13,19 @@ info:
   title: Gin Swagger Example API
   version: "1.0"
 paths:
+  /user:
+    post:
+      consumes:
+      - '*/*'
+      description: create a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: create a user
+      tags:
+      - user
   /user/:userId:
     delete:
       consumes:

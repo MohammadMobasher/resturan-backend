@@ -8,6 +8,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary create a user
+// @Description create a user
+// @Tags user
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /user [post]
 func CreateUser(c *gin.Context) {
 	var user models.User
 	err := c.ShouldBindJSON(&user)
