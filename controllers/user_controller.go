@@ -27,6 +27,13 @@ func CreateUser(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, reuslt)
 }
 
+// @Summary delete a user
+// @Description delete a user
+// @Tags user
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /user/:userId [delete]
 func DeleteUser(c *gin.Context) {
 	userId := c.Param("userId")
 	userRepository := repositories.NewUserRepository()
@@ -38,6 +45,13 @@ func DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "The user removed successfully"})
 }
 
+// @Summary Get all users.
+// @Description Get all users
+// @Tags user
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /users [get]
 func GetUsers(c *gin.Context) {
 	userRepository := repositories.NewUserRepository()
 	users, err := userRepository.GetAll()
