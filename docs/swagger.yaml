@@ -1,0 +1,44 @@
+basePath: /
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: resturan
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Gin Swagger Example API
+  version: "1.0"
+paths:
+  /user/:userId:
+    delete:
+      consumes:
+      - '*/*'
+      description: delete a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: delete a user
+      tags:
+      - user
+  /users:
+    get:
+      consumes:
+      - '*/*'
+      description: Get all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get all users.
+      tags:
+      - user
+schemes:
+- http
+swagger: "2.0"
