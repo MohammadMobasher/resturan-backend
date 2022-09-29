@@ -42,10 +42,11 @@ func createServer() {
 		context.String(http.StatusOK, "Homepage")
 	})
 	r.Static("/Content", "./uploaded_file")
-	routes.UserRoute(r)
+	var rGroup = routes.ConfigAuth(r)
+
+	routes.UserRoute(rGroup)
 	routes.FoodGroupRoute(r)
 	routes.FoodRoute(r)
-	routes.ConfigAuth(r)
 
 	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

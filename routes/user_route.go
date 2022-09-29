@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UserRoute(r *gin.Engine) {
+func UserRoute(r *gin.RouterGroup) {
 	r.GET("/users", controllers.GetUsers)
 	r.POST("/user", controllers.CreateUser)
 	r.PUT("/user", controllers.UpdateUsers)
