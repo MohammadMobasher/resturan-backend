@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func FoodGroupRoute(r *gin.Engine) {
+func FoodGroupRoute(r *gin.RouterGroup) {
 	r.GET("/foodgroup", controllers.GetFoodGroups)
 	r.POST("/foodgroup", controllers.CreateFoodGroup)
 	r.PUT("/foodgroup", controllers.UpdateFoodGroup)
