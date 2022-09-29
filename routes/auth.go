@@ -12,7 +12,7 @@ import (
 
 var identityKey = "id"
 
-func ConfigAuth(r *gin.Engine) {
+func ConfigAuth(r *gin.Engine) *gin.RouterGroup {
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "test zone",
 		Key:         []byte("secret key"),
@@ -105,21 +105,13 @@ func ConfigAuth(r *gin.Engine) {
 	// Refresh time can be longer than token timeout
 	auth.GET("/refresh_token", authMiddleware.RefreshHandler)
 	auth.Use(authMiddleware.MiddlewareFunc())
-	{
-		auth.GET("/hello", helloHandler)
-	}
+	return auth
+	// auth.Use(authMiddleware.MiddlewareFunc())
+	// {
+	// 	auth.GET("/hello", helloHandler)
+	// }
 
 	// if err := http.ListenAndServe(":8080", r); err != nil {
 	// 	log.Fatal(err)
 	// }
-}
-
-func helloHandler(c *gin.Context) {
-	claims := jwt.ExtractClaims(c)
-	user, _ := c.Get(identityKey)
-	c.JSON(200, gin.H{
-		"userID":   claims[identityKey],
-		"userName": user.(*models.User).UserName,
-		"text":     "Hello World.",
-	})
 }
