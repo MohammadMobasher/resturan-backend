@@ -21,7 +21,7 @@ func NewMongoRepository[T any](collectionName string) *MongoRepository[T] {
 	conf := config.GetConfig()
 	ctx := context.TODO()
 
-	db := database.ConnectDB(ctx, conf)
+	db := database.ConnectMongoDB(ctx, conf)
 
 	return &MongoRepository[T]{
 		Ctx:        ctx,

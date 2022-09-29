@@ -11,4 +11,9 @@ type Configuration struct {
 	LaravelPassword    string `mapstructure:"LARAVEL_PASSWORD"`
 	UseTestNet         bool   `mapstructure:"USE_TEST_NET"`
 	StreamsPerListener int64  `mapstructure:"NUM_OF_STREAMS_PER_LISTENER"`
+
+	MySqlRootPassword string `mapstructure:"MYSQL_ROOT_PASSWORD"`
+	MySqlPassword     string `mapstructure:"MYSQL_PASSWORD"`
+	MySqlUser         string `mapstructure:"MYSQL_USER"`
+	MySqlDatabase     string `mapstructure:"MYSQL_DATABASE"`
 }
