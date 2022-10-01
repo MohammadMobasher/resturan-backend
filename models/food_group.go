@@ -6,3 +6,8 @@ type FoodGroup struct {
 	Id   primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string             `json:"name,omitempty" bson:"name,omitempty" binding:"required"`
 }
+
+type FoodGroupMySql struct {
+	Id   int64  `json:"_id,omitempty" bson:"_id,omitempty"`
+	Name string `json:"name,omitempty" bson:"name,omitempty" binding:"required"`
+}
