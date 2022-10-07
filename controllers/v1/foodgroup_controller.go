@@ -4,7 +4,8 @@ import (
 	"net/http"
 
 	"github.com/MohammadMobasher/resturan-backend/models"
-	"github.com/MohammadMobasher/resturan-backend/repositories"
+	mongoRepositories "github.com/MohammadMobasher/resturan-backend/repositories/mongo_repository"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +17,7 @@ func CreateFoodGroup(c *gin.Context) {
 		return
 	}
 
-	foodGRoupRepository := repositories.NewFoodGroupRepository()
+	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
 	reuslt, err := foodGRoupRepository.Insert(foodGroup)
 
 	if err != nil {
@@ -29,7 +30,7 @@ func CreateFoodGroup(c *gin.Context) {
 
 func DeleteFoodGroup(c *gin.Context) {
 	userId := c.Param("foodgroupId")
-	foodGRoupRepository := repositories.NewFoodGroupRepository()
+	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
 	result, err := foodGRoupRepository.Delete(userId)
 	if err != nil && result {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
@@ -39,7 +40,7 @@ func DeleteFoodGroup(c *gin.Context) {
 }
 
 func GetFoodGroups(c *gin.Context) {
-	foodGRoupRepository := repositories.NewFoodGroupRepository()
+	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
 	users, err := foodGRoupRepository.GetAll()
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"message": err.Error()})
@@ -55,7 +56,7 @@ func UpdateFoodGroup(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	foodGRoupRepository := repositories.NewFoodGroupRepository()
+	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
 	users, err := foodGRoupRepository.Update(foodGroup)
 
 	if err != nil {
@@ -67,7 +68,7 @@ func UpdateFoodGroup(c *gin.Context) {
 
 func GetFoodGroup(c *gin.Context) {
 	userId := c.Param("foodgroupId")
-	foodGRoupRepository := repositories.NewFoodGroupRepository()
+	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
 	result, err := foodGRoupRepository.GetItem(userId)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})

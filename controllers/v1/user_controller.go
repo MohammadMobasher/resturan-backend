@@ -4,7 +4,8 @@ import (
 	"net/http"
 
 	"github.com/MohammadMobasher/resturan-backend/models"
-	"github.com/MohammadMobasher/resturan-backend/repositories"
+	mongoRepositories "github.com/MohammadMobasher/resturan-backend/repositories/mongo_repository"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,7 +24,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	userRepository := repositories.NewUserRepository()
+	userRepository := mongoRepositories.NewUserRepository()
 	reuslt, err := userRepository.Insert(user)
 
 	if err != nil {
@@ -40,10 +41,10 @@ func CreateUser(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /user/:userId [delete]
+// @Router /v1/user/:userId [delete]
 func DeleteUser(c *gin.Context) {
 	userId := c.Param("userId")
-	userRepository := repositories.NewUserRepository()
+	userRepository := mongoRepositories.NewUserRepository()
 	result, err := userRepository.Delete(userId)
 	if err != nil && result {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
@@ -58,9 +59,9 @@ func DeleteUser(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /users [get]
+// @Router /v1/users [get]
 func GetUsers(c *gin.Context) {
-	userRepository := repositories.NewUserRepository()
+	userRepository := mongoRepositories.NewUserRepository()
 	users, err := userRepository.GetAll()
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"message": err.Error()})
@@ -74,7 +75,7 @@ func GetUsers(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /user [put]
+// @Router /v1/user [put]
 func UpdateUsers(c *gin.Context) {
 	user := models.User{}
 	err := c.ShouldBindJSON(&user)
@@ -83,7 +84,7 @@ func UpdateUsers(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	userRepository := repositories.NewUserRepository()
+	userRepository := mongoRepositories.NewUserRepository()
 	users, err := userRepository.Update(user)
 
 	if err != nil {
@@ -99,10 +100,10 @@ func UpdateUsers(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /user [get]
+// @Router /v1/user [get]
 func GetUser(c *gin.Context) {
 	userId := c.Param("userId")
-	userRepository := repositories.NewUserRepository()
+	userRepository := mongoRepositories.NewUserRepository()
 	result, err := userRepository.GetItem(userId)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})

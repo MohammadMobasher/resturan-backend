@@ -5,7 +5,7 @@ import (
 
 	"github.com/MohammadMobasher/resturan-backend/common"
 	"github.com/MohammadMobasher/resturan-backend/models"
-	"github.com/MohammadMobasher/resturan-backend/repositories"
+	mongoRepositories "github.com/MohammadMobasher/resturan-backend/repositories/mongo_repository"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,7 +27,7 @@ func CreateFood(c *gin.Context) {
 		return
 	}
 
-	foodRepository := repositories.NewFoodRepository()
+	foodRepository := mongoRepositories.NewFoodRepository()
 	reuslt, err := foodRepository.Insert(food)
 
 	if err != nil {

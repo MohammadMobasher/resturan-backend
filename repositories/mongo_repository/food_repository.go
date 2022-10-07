@@ -1,4 +1,4 @@
-package repositories
+package mongo_repositories
 
 import (
 	"github.com/MohammadMobasher/resturan-backend/models"
