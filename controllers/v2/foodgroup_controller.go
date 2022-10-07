@@ -2,6 +2,7 @@ package controllersv2
 
 import (
 	"net/http"
+	"strconv"
 
 	mysqlRepositories "github.com/MohammadMobasher/resturan-backend/repositories/mysql_repository"
 
@@ -26,4 +27,21 @@ func CreateFoodGroup(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, reuslt)
+}
+
+func DeleteFoodGroup(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("foodgroupId"))
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
+	result, err := foodGRoupRepository.Delete(id)
+	if err != nil && result {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "The foodGroup removed successfully"})
 }
