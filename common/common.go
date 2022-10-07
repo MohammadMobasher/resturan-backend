@@ -1,4 +1,4 @@
-package controllers
+package common
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func uploadFile(c *gin.Context) (string, error) {
+func UploadFile(c *gin.Context) (string, error) {
 	file, err := c.FormFile("file")
 
 	// The file cannot be received.
