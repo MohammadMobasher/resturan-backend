@@ -49,3 +49,24 @@ func (f *FoodGroupMySqlRepository) Insert(foodGroup models.FoodGroupMySql) (*mod
 
 	return &foodGroup, nil
 }
+
+func (f *FoodGroupMySqlRepository) Delete(foodGroupId int) (bool, error) {
+	q := "DELETE FROM food_group WHERE Id = ?"
+
+	delete, err := f.db.Prepare(q)
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	_, err = delete.Exec(foodGroupId)
+	delete.Close()
+
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	return true, nil
+
+}
