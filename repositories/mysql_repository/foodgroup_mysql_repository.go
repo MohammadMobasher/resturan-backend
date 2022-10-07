@@ -9,20 +9,20 @@ import (
 	"github.com/MohammadMobasher/resturan-backend/models"
 )
 
-type FoodGroupRepository struct {
+type FoodGroupMySqlRepository struct {
 	db *sql.DB
 }
 
-func NewFoodGroupRepository() *FoodGroupRepository {
+func NewFoodGroupMySqlRepository() *FoodGroupMySqlRepository {
 	conf := config.GetConfig()
 	db := database.ConnectMySqlDB(conf)
 
-	return &FoodGroupRepository{
+	return &FoodGroupMySqlRepository{
 		db: db,
 	}
 }
 
-func (f *FoodGroupRepository) Insert(foodGroup models.FoodGroupMySql) (*models.FoodGroupMySql, error) {
+func (f *FoodGroupMySqlRepository) Insert(foodGroup models.FoodGroupMySql) (*models.FoodGroupMySql, error) {
 	q := "INSERT INTO food_group(Name) VALUES(?)"
 	insert, err := f.db.Prepare(q)
 	if err != nil {
