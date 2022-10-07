@@ -5,6 +5,7 @@ import (
 
 	"github.com/MohammadMobasher/resturan-backend/routes"
 	"github.com/MohammadMobasher/resturan-backend/routes/middleware"
+
 	"github.com/gin-gonic/gin"
 
 	_ "github.com/MohammadMobasher/resturan-backend/docs"
@@ -29,6 +30,13 @@ import (
 // @BasePath /
 // @schemes http
 func main() {
+	// conf := config.GetConfig()
+	// database.ConnectMySqlDB(conf)
+	// foodGroup := models.FoodGroupMySql{
+	// 	Name: "mohammad",
+	// }
+	// r := mysql_database.NewFoodGroupMySqlRepository()
+	// r.Insert(foodGroup)
 
 	createServer()
 
@@ -42,11 +50,14 @@ func createServer() {
 		context.String(http.StatusOK, "Homepage")
 	})
 	r.Static("/Content", "./uploaded_file")
+
 	var rGroup = routes.ConfigAuth(r)
 
-	routes.UserRoute(rGroup)
-	routes.FoodRoute(rGroup)
-	routes.FoodGroupRoute(rGroup)
+	rGroupV1 := rGroup.Group("/v1")
+
+	routes.UserRouteV1(rGroupV1)
+	routes.FoodRouteV1(rGroupV1)
+	routes.FoodGroupRouteV1(rGroupV1)
 
 	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

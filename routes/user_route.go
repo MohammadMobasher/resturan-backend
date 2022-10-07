@@ -1,14 +1,14 @@
 package routes
 
 import (
-	"github.com/MohammadMobasher/resturan-backend/controllers"
+	controllersv1 "github.com/MohammadMobasher/resturan-backend/controllers/v1"
 	"github.com/gin-gonic/gin"
 )
 
-func UserRoute(r *gin.RouterGroup) {
-	r.GET("/users", controllers.GetUsers)
-	r.POST("/user", controllers.CreateUser)
-	r.PUT("/user", controllers.UpdateUsers)
-	r.GET("/user/:userId", controllers.GetUser)
-	r.DELETE("/user/:userId", controllers.DeleteUser)
+func UserRouteV1(r *gin.RouterGroup) {
+	r.GET("/users", controllersv1.GetUsers)
+	r.POST("/user", controllersv1.CreateUser)
+	r.PUT("/user", controllersv1.UpdateUsers)
+	r.GET("/user/:userId", controllersv1.GetUser)
+	r.DELETE("/user/:userId", controllersv1.DeleteUser)
 }

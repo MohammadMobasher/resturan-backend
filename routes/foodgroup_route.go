@@ -1,14 +1,14 @@
 package routes
 
 import (
-	"github.com/MohammadMobasher/resturan-backend/controllers"
+	controllersv1 "github.com/MohammadMobasher/resturan-backend/controllers/v1"
 	"github.com/gin-gonic/gin"
 )
 
-func FoodGroupRoute(r *gin.RouterGroup) {
-	r.GET("/foodgroup", controllers.GetFoodGroups)
-	r.POST("/foodgroup", controllers.CreateFoodGroup)
-	r.PUT("/foodgroup", controllers.UpdateFoodGroup)
-	r.GET("/foodgroup/:foodgroupId", controllers.GetFoodGroup)
-	r.DELETE("/foodgroup/:foodgroupId", controllers.DeleteFoodGroup)
+func FoodGroupRouteV1(r *gin.RouterGroup) {
+	r.GET("/foodgroup", controllersv1.GetFoodGroups)
+	r.POST("/foodgroup", controllersv1.CreateFoodGroup)
+	r.PUT("/foodgroup", controllersv1.UpdateFoodGroup)
+	r.GET("/foodgroup/:foodgroupId", controllersv1.GetFoodGroup)
+	r.DELETE("/foodgroup/:foodgroupId", controllersv1.DeleteFoodGroup)
 }

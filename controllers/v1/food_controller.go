@@ -1,8 +1,9 @@
-package controllers
+package controllersv1
 
 import (
 	"net/http"
 
+	"github.com/MohammadMobasher/resturan-backend/common"
 	"github.com/MohammadMobasher/resturan-backend/models"
 	"github.com/MohammadMobasher/resturan-backend/repositories"
 	"github.com/gin-gonic/gin"
@@ -18,7 +19,7 @@ func CreateFood(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message1": err.Error()})
 		return
 	}
-	imageAddress, err := uploadFile(c)
+	imageAddress, err := common.UploadFile(c)
 	food.ImageAddress = imageAddress
 
 	if err != nil {

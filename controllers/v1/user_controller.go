@@ -1,4 +1,4 @@
-package controllers
+package controllersv1
 
 import (
 	"net/http"
@@ -14,7 +14,7 @@ import (
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /user [post]
+// @Router /v1/user [post]
 func CreateUser(c *gin.Context) {
 	var user models.User
 	err := c.ShouldBindJSON(&user)
