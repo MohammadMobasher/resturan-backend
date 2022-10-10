@@ -138,6 +138,24 @@
             }
         },
         "/v2/foodgroup": {
+            "get": {
+                "description": "Get all food group",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food group"
+                ],
+                "summary": "Get all food group",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "post": {
                 "description": "create a food group",
                 "consumes": [

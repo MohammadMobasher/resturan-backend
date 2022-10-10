@@ -90,6 +90,18 @@ paths:
       tags:
       - user
   /v2/foodgroup:
+    get:
+      consumes:
+      - '*/*'
+      description: Get all food group
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get all food group
+      tags:
+      - food group
     post:
       consumes:
       - '*/*'
