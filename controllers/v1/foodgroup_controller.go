@@ -9,6 +9,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary create a food group
+// @Description create a food group
+// @Tags food group
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v1/foodgroup [post]
 func CreateFoodGroup(c *gin.Context) {
 	var foodGroup models.FoodGroup
 	err := c.ShouldBindJSON(&foodGroup)
@@ -28,6 +35,13 @@ func CreateFoodGroup(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, reuslt)
 }
 
+// @Summary delete a food group
+// @Description delete a food group
+// @Tags food group
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v2/foodgroup/:foodgroupId [delete]
 func DeleteFoodGroup(c *gin.Context) {
 	userId := c.Param("foodgroupId")
 	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
