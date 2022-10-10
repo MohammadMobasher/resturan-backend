@@ -22,7 +22,7 @@ func NewFoodGroupMySqlRepository() *FoodGroupMySqlRepository {
 	}
 }
 
-func (f *FoodGroupMySqlRepository) GetItem(foodgroupId int) (models.FoodGroupMySql, error) {
+func (f *FoodGroupMySqlRepository) GetItem(foodgroupId int64) (models.FoodGroupMySql, error) {
 	var foodGroup models.FoodGroupMySql
 
 	q := "SELECT * FROM food_group WHERE ID = ?"
@@ -118,4 +118,26 @@ func (f *FoodGroupMySqlRepository) Delete(foodGroupId int) (bool, error) {
 
 	return true, nil
 
+}
+
+func (f *FoodGroupMySqlRepository) Update(obj models.FoodGroupMySql) (models.FoodGroupMySql, error) {
+	var foodGroup models.FoodGroupMySql
+
+	q := "UPDATE food_group SET Name = ? WHERE Id = ?"
+
+	update, err := f.db.Prepare(q)
+	if err != nil {
+		log.Println(err)
+		return foodGroup, err
+	}
+
+	_, err = update.Exec(obj.Name, obj.Id)
+	update.Close()
+
+	if err != nil {
+		log.Println(err)
+		return foodGroup, err
+	}
+
+	return f.GetItem(obj.Id)
 }
