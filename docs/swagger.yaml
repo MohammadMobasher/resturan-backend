@@ -127,6 +127,18 @@ paths:
       summary: delete a food group
       tags:
       - food group
+    get:
+      consumes:
+      - '*/*'
+      description: Get a food group
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get a food group
+      tags:
+      - food group
 schemes:
 - http
 swagger: "2.0"

@@ -180,6 +180,24 @@ const docTemplate = `{
             }
         },
         "/v2/foodgroup/:foodgroupId": {
+            "get": {
+                "description": "Get a food group",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food group"
+                ],
+                "summary": "Get a food group",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "delete": {
                 "description": "delete a food group",
                 "consumes": [
