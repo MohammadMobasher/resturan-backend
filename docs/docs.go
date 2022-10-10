@@ -160,6 +160,24 @@ const docTemplate = `{
                     }
                 }
             },
+            "put": {
+                "description": "Update a food group",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food group"
+                ],
+                "summary": "Update a food group",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "post": {
                 "description": "create a food group",
                 "consumes": [

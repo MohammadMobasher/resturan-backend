@@ -114,6 +114,18 @@ paths:
       summary: create a food group
       tags:
       - food group
+    put:
+      consumes:
+      - '*/*'
+      description: Update a food group
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Update a food group
+      tags:
+      - food group
   /v2/foodgroup/:foodgroupId:
     delete:
       consumes:
