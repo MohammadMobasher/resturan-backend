@@ -25,7 +25,27 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/user": {
+        "/v1/foodgroup": {
+            "post": {
+                "description": "create a food group",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food group"
+                ],
+                "summary": "create a food group",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v1/user": {
             "get": {
                 "description": "get a user",
                 "consumes": [
@@ -81,7 +101,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/:userId": {
+        "/v1/user/:userId": {
             "delete": {
                 "description": "delete a user",
                 "consumes": [
@@ -101,7 +121,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/users": {
+        "/v1/users": {
             "get": {
                 "description": "Get all users",
                 "consumes": [
@@ -114,6 +134,46 @@ const docTemplate = `{
                     "user"
                 ],
                 "summary": "Get all users.",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v2/foodgroup": {
+            "post": {
+                "description": "create a food group",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food group"
+                ],
+                "summary": "create a food group",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v2/foodgroup/:foodgroupId": {
+            "delete": {
+                "description": "delete a food group",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food group"
+                ],
+                "summary": "delete a food group",
                 "responses": {
                     "200": {
                         "description": "OK"

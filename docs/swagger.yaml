@@ -13,7 +13,20 @@ info:
   title: Gin Swagger Example API
   version: "1.0"
 paths:
-  /user:
+  /v1/foodgroup:
+    post:
+      consumes:
+      - '*/*'
+      description: create a food group
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: create a food group
+      tags:
+      - food group
+  /v1/user:
     get:
       consumes:
       - '*/*'
@@ -50,7 +63,7 @@ paths:
       summary: put a user
       tags:
       - user
-  /user/:userId:
+  /v1/user/:userId:
     delete:
       consumes:
       - '*/*'
@@ -63,7 +76,7 @@ paths:
       summary: delete a user
       tags:
       - user
-  /users:
+  /v1/users:
     get:
       consumes:
       - '*/*'
@@ -76,6 +89,32 @@ paths:
       summary: Get all users.
       tags:
       - user
+  /v2/foodgroup:
+    post:
+      consumes:
+      - '*/*'
+      description: create a food group
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: create a food group
+      tags:
+      - food group
+  /v2/foodgroup/:foodgroupId:
+    delete:
+      consumes:
+      - '*/*'
+      description: delete a food group
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: delete a food group
+      tags:
+      - food group
 schemes:
 - http
 swagger: "2.0"
