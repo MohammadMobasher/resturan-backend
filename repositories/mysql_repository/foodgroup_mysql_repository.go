@@ -22,6 +22,29 @@ func NewFoodGroupMySqlRepository() *FoodGroupMySqlRepository {
 	}
 }
 
+func (f *FoodGroupMySqlRepository) GetItem(foodgroupId int) (models.FoodGroupMySql, error) {
+	var foodGroup models.FoodGroupMySql
+
+	q := "SELECT * FROM food_group WHERE ID = ?"
+
+	getItem, err := f.db.Prepare(q)
+
+	if err != nil {
+		log.Println(err)
+		return foodGroup, err
+	}
+
+	err = getItem.QueryRow(foodgroupId).Scan(&foodGroup.Id, &foodGroup.Name)
+
+	if err != nil {
+		log.Println(err)
+		return foodGroup, err
+	}
+
+	return foodGroup, nil
+
+}
+
 func (f *FoodGroupMySqlRepository) GetAll() ([]models.FoodGroupMySql, error) {
 	q := "SELECT * FROM food_group"
 
@@ -30,6 +53,8 @@ func (f *FoodGroupMySqlRepository) GetAll() ([]models.FoodGroupMySql, error) {
 	if err != nil {
 		panic(err.Error())
 	}
+
+	defer items.Close()
 
 	var finalResult = []models.FoodGroupMySql{}
 

@@ -75,3 +75,25 @@ func GetFoodGroups(c *gin.Context) {
 	}
 	c.IndentedJSON(http.StatusOK, users)
 }
+
+// @Summary Get a food group
+// @Description Get a food group
+// @Tags food group
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v2/foodgroup/:foodgroupId [Get]
+func GetFoodGroup(c *gin.Context) {
+	foodgroupId, err := strconv.Atoi(c.Param("foodgroupId"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
+	result, err := foodGRoupRepository.GetItem(foodgroupId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+	}
+
+	c.IndentedJSON(http.StatusOK, result)
+}
