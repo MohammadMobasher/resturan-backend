@@ -60,6 +60,7 @@ func createServer() {
 	routes.FoodGroupRouteV1(rGroupV1)
 
 	rGroupV2 := rGroup.Group("/v2")
+
 	routes.FoodGroupRouteV2(rGroupV2)
 
 	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
