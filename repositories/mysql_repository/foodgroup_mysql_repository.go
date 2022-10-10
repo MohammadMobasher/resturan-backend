@@ -22,6 +22,30 @@ func NewFoodGroupMySqlRepository() *FoodGroupMySqlRepository {
 	}
 }
 
+func (f *FoodGroupMySqlRepository) GetAll() ([]models.FoodGroupMySql, error) {
+	q := "SELECT * FROM food_group"
+
+	items, err := f.db.Query(q)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	var finalResult = []models.FoodGroupMySql{}
+
+	for items.Next() {
+		var foodGroup models.FoodGroupMySql
+		err = items.Scan(&foodGroup.Id, &foodGroup.Name)
+		if err != nil {
+			return nil, err
+		}
+		finalResult = append(finalResult, foodGroup)
+	}
+
+	return finalResult, nil
+
+}
+
 func (f *FoodGroupMySqlRepository) Insert(foodGroup models.FoodGroupMySql) (*models.FoodGroupMySql, error) {
 	q := "INSERT INTO food_group(Name) VALUES(?)"
 	insert, err := f.db.Prepare(q)

@@ -53,6 +53,13 @@ func DeleteFoodGroup(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "The foodGroup removed successfully"})
 }
 
+// @Summary Get all food group
+// @Description Get all food group
+// @Tags food group
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v2/foodgroup [Get]
 func GetFoodGroups(c *gin.Context) {
 	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
 	users, err := foodGRoupRepository.GetAll()
