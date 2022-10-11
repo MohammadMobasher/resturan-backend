@@ -34,7 +34,7 @@ func (f *FoodGroupMySqlRepository) GetItem(foodgroupId int64) (models.FoodGroupM
 		return foodGroup, err
 	}
 
-	err = getItem.QueryRow(foodgroupId).Scan(&foodGroup.Id, &foodGroup.Name)
+	err = getItem.QueryRow(foodgroupId).Scan(&foodGroup.Id, &foodGroup.Name, &foodGroup.ImageAddress)
 
 	if err != nil {
 		log.Println(err)
@@ -72,14 +72,14 @@ func (f *FoodGroupMySqlRepository) GetAll() ([]models.FoodGroupMySql, error) {
 }
 
 func (f *FoodGroupMySqlRepository) Insert(foodGroup models.FoodGroupMySql) (*models.FoodGroupMySql, error) {
-	q := "INSERT INTO food_group(Name) VALUES(?)"
+	q := "INSERT INTO food_group(Name, ImageAddress) VALUES(?, ?)"
 	insert, err := f.db.Prepare(q)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	resp, err := insert.Exec(foodGroup.Name)
+	resp, err := insert.Exec(foodGroup.Name, foodGroup.ImageAddress)
 	insert.Close()
 
 	if err != nil {

@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/MohammadMobasher/resturan-backend/common"
 	mysqlRepositories "github.com/MohammadMobasher/resturan-backend/repositories/mysql_repository"
 
 	"github.com/MohammadMobasher/resturan-backend/models"
@@ -19,11 +20,14 @@ import (
 // @Router /v2/foodgroup [post]
 func CreateFoodGroup(c *gin.Context) {
 	var foodGroup models.FoodGroupMySql
-	err := c.ShouldBindJSON(&foodGroup)
+	err := c.Bind(&foodGroup)
 	if err != nil {
 		c.AbortWithError(http.StatusBadGateway, err)
 		return
 	}
+
+	imageAddress, err := common.UploadFile(c)
+	foodGroup.ImageAddress = &imageAddress
 
 	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
 	reuslt, err := foodGRoupRepository.Insert(foodGroup)
@@ -113,6 +117,7 @@ func UpdateFoodGroup(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
+
 	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
 	users, err := foodGRoupRepository.Update(foodGroup)
 
