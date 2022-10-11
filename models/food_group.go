@@ -8,6 +8,7 @@ type FoodGroup struct {
 }
 
 type FoodGroupMySql struct {
-	Id   int64  `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name string `json:"name,omitempty" bson:"name,omitempty" binding:"required"`
+	Id           int64   `json:"id,omitempty" bson:"id,omitempty"`
+	Name         string  `json:"name,omitempty" bson:"name,omitempty" binding:"required"`
+	ImageAddress *string `json:"imageaddress" bson:"imageaddress"`
 }
