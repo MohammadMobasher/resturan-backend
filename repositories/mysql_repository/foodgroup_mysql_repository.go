@@ -122,8 +122,12 @@ func (f *FoodGroupMySqlRepository) Delete(foodGroupId int) (bool, error) {
 
 func (f *FoodGroupMySqlRepository) Update(obj models.FoodGroupMySql) (models.FoodGroupMySql, error) {
 	var foodGroup models.FoodGroupMySql
-
-	q := "UPDATE food_group SET Name = ? WHERE Id = ?"
+	var q string
+	if obj.ImageAddress != nil {
+		q = "UPDATE food_group SET Name = ?, ImageAddress = ? WHERE Id = ?"
+	} else {
+		q = "UPDATE food_group SET Name = ? WHERE Id = ?"
+	}
 
 	update, err := f.db.Prepare(q)
 	if err != nil {
@@ -131,7 +135,11 @@ func (f *FoodGroupMySqlRepository) Update(obj models.FoodGroupMySql) (models.Foo
 		return foodGroup, err
 	}
 
-	_, err = update.Exec(obj.Name, obj.Id)
+	if obj.ImageAddress != nil {
+		_, err = update.Exec(obj.Name, obj.ImageAddress, obj.Id)
+	} else {
+		_, err = update.Exec(obj.Name, obj.Id)
+	}
 	update.Close()
 
 	if err != nil {

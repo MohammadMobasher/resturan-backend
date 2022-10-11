@@ -111,11 +111,16 @@ func GetFoodGroup(c *gin.Context) {
 // @Router /v2/foodgroup [PUT]
 func UpdateFoodGroup(c *gin.Context) {
 	foodGroup := models.FoodGroupMySql{}
-	err := c.ShouldBindJSON(&foodGroup)
+	err := c.Bind(&foodGroup)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
+	}
+
+	imageAddress, err := common.UploadFile(c)
+	if imageAddress != "" {
+		foodGroup.ImageAddress = &imageAddress
 	}
 
 	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
