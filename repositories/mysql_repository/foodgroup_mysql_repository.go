@@ -60,7 +60,7 @@ func (f *FoodGroupMySqlRepository) GetAll() ([]models.FoodGroupMySql, error) {
 
 	for items.Next() {
 		var foodGroup models.FoodGroupMySql
-		err = items.Scan(&foodGroup.Id, &foodGroup.Name)
+		err = items.Scan(&foodGroup.Id, &foodGroup.Name, &foodGroup.ImageAddress)
 		if err != nil {
 			return nil, err
 		}
