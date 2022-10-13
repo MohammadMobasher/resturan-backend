@@ -172,6 +172,26 @@ const docTemplate = `{
                     "food group"
                 ],
                 "summary": "Update a food group",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "food group id",
+                        "name": "Id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "food group name",
+                        "name": "Name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "file",
+                        "description": "food group image",
+                        "name": "file",
+                        "in": "formData"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -190,6 +210,20 @@ const docTemplate = `{
                     "food group"
                 ],
                 "summary": "create a food group",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "food group name",
+                        "name": "Name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "file",
+                        "description": "food group image",
+                        "name": "file",
+                        "in": "formData"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"

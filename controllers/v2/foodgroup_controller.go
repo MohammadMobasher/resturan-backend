@@ -16,6 +16,8 @@ import (
 // @Tags food group
 // @Accept */*
 // @Produce json
+// @Param        Name  query   string false  "food group name"
+// @Param        file  formData   file false  "food group image"
 // @Success 200
 // @Router /v2/foodgroup [post]
 func CreateFoodGroup(c *gin.Context) {
@@ -107,6 +109,9 @@ func GetFoodGroup(c *gin.Context) {
 // @Tags food group
 // @Accept */*
 // @Produce json
+// @Param        Id    query     integer    false  "food group id"
+// @Param        Name  query   string false  "food group name"
+// @Param        file  formData   file false  "food group image"
 // @Success 200
 // @Router /v2/foodgroup [PUT]
 func UpdateFoodGroup(c *gin.Context) {
