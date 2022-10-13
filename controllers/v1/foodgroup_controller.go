@@ -43,9 +43,9 @@ func CreateFoodGroup(c *gin.Context) {
 // @Success 200
 // @Router /v2/foodgroup/:foodgroupId [delete]
 func DeleteFoodGroup(c *gin.Context) {
-	userId := c.Param("foodgroupId")
+	foodGroupId := c.Param("foodgroupId")
 	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
-	result, err := foodGRoupRepository.Delete(userId)
+	result, err := foodGRoupRepository.Delete(foodGroupId)
 	if err != nil && result {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 	}
