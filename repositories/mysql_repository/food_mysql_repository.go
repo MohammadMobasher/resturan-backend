@@ -57,3 +57,24 @@ func (f *FoodMySqlRepository) Insert(food models.FoodMySql) (*models.FoodMySql, 
 
 	return &food, nil
 }
+
+func (f *FoodMySqlRepository) Delete(id int64) (bool, error) {
+	q := "DELETE FROM food WHERE Id = ?"
+
+	delete, err := f.db.Prepare(q)
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	_, err = delete.Exec(id)
+	delete.Close()
+
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	return true, nil
+
+}
