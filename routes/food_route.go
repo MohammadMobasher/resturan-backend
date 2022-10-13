@@ -20,5 +20,5 @@ func FoodRouteV2(r *gin.RouterGroup) {
 	r.POST("/food", controllersv2.CreateFood)
 	// r.PUT("/foodgroup", controllers.UpdateFoodGroup)
 	// r.GET("/foodgroup/:foodgroupId", controllers.GetFoodGroup)
-	// r.DELETE("/foodgroup/:foodgroupId", controllers.DeleteFoodGroup)
+	r.DELETE("/food/:id", controllersv2.DeleteFood)
 }
