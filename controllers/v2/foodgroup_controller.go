@@ -75,11 +75,11 @@ func DeleteFoodGroup(c *gin.Context) {
 // @Router /v2/foodgroup [Get]
 func GetFoodGroups(c *gin.Context) {
 	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
-	users, err := foodGRoupRepository.GetAll()
+	foodGroups, err := foodGRoupRepository.GetAll()
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"message": err.Error()})
 	}
-	c.IndentedJSON(http.StatusOK, users)
+	c.IndentedJSON(http.StatusOK, foodGroups)
 }
 
 // @Summary Get a food group
@@ -129,11 +129,11 @@ func UpdateFoodGroup(c *gin.Context) {
 	}
 
 	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
-	users, err := foodGRoupRepository.Update(foodGroup)
+	foodGroups, err := foodGRoupRepository.Update(foodGroup)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	c.IndentedJSON(http.StatusOK, users)
+	c.IndentedJSON(http.StatusOK, foodGroups)
 }
