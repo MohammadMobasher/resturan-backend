@@ -89,6 +89,28 @@ paths:
       summary: Get all users.
       tags:
       - user
+  /v2/food:
+    post:
+      consumes:
+      - '*/*'
+      description: create a food
+      parameters:
+      - description: food name
+        in: query
+        name: Name
+        type: string
+      - description: food image
+        in: formData
+        name: file
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: create a food
+      tags:
+      - food
   /v2/foodgroup:
     get:
       consumes:

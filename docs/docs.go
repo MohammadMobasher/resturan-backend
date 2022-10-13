@@ -141,6 +141,40 @@ const docTemplate = `{
                 }
             }
         },
+        "/v2/food": {
+            "post": {
+                "description": "create a food",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food"
+                ],
+                "summary": "create a food",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "food name",
+                        "name": "Name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "file",
+                        "description": "food image",
+                        "name": "file",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/v2/foodgroup": {
             "get": {
                 "description": "Get all food group",
