@@ -2,6 +2,7 @@ package controllersv2
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/MohammadMobasher/resturan-backend/common"
 	"github.com/MohammadMobasher/resturan-backend/models"
@@ -16,6 +17,7 @@ import (
 // @Accept */*
 // @Produce json
 // @Param        Name  query   string false  "food name"
+// @Param        FoodGroupId    query     integer    false  "food group id"
 // @Param        file  formData   file false  "food image"
 // @Success 200
 // @Router /v2/food [post]
@@ -46,4 +48,28 @@ func CreateFood(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, reuslt)
+}
+
+// @Summary delete a food
+// @Description delete a food
+// @Tags food
+// @Accept */*
+// @Produce json
+// @Param        Name  query   string false  "food name"
+// @Success 200
+// @Router /v2/food/:id [delete]
+func DeleteFood(c *gin.Context) {
+
+	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	foodRepository := mysqlRepositories.NewFoodMySqlRepository()
+	result, err := foodRepository.Delete(id)
+	if err != nil && result {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "The food removed successfully"})
 }
