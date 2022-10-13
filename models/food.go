@@ -10,7 +10,7 @@ type Food struct {
 }
 
 type FoodMySql struct {
-	Id           int64  `json:"_id,omitempty" bson:"_id,omitempty"`
+	Id           int64  `json:"id,omitempty" bson:"id,omitempty"`
 	Name         string `json:"name,omitempty" bson:"name,omitempty" binding:"required"`
 	FoodGroupId  int64  `json:"FoodGroupId"  bson:"FoodGroupId,omitempty" binding:"required"`
 	ImageAddress *string
