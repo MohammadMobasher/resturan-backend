@@ -158,10 +158,44 @@
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "description": "food group id",
+                        "name": "FoodGroupId",
+                        "in": "query"
+                    },
+                    {
                         "type": "file",
                         "description": "food image",
                         "name": "file",
                         "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v2/food/:id": {
+            "delete": {
+                "description": "delete a food",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food"
+                ],
+                "summary": "delete a food",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "food name",
+                        "name": "Name",
+                        "in": "query"
                     }
                 ],
                 "responses": {

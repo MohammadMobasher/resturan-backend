@@ -99,6 +99,10 @@ paths:
         in: query
         name: Name
         type: string
+      - description: food group id
+        in: query
+        name: FoodGroupId
+        type: integer
       - description: food image
         in: formData
         name: file
@@ -109,6 +113,24 @@ paths:
         "200":
           description: OK
       summary: create a food
+      tags:
+      - food
+  /v2/food/:id:
+    delete:
+      consumes:
+      - '*/*'
+      description: delete a food
+      parameters:
+      - description: food name
+        in: query
+        name: Name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: delete a food
       tags:
       - food
   /v2/foodgroup:
