@@ -8,3 +8,10 @@ type User struct {
 	UserName string             `json:"username,omitempty" binding:"required"`
 	Password string             `json:"password,omitempty" binding:"required"`
 }
+
+type UserMySql struct {
+	Id       int64  `json:"_id,omitempty" bson:"_id,omitempty"`
+	Name     string `json:"name,omitempty" bson:"name,omitempty" binding:"required"`
+	UserName string `json:"username,omitempty" binding:"required"`
+	Password string `json:"password,omitempty" binding:"required"`
+}
