@@ -24,6 +24,7 @@ import (
 func CreateFood(c *gin.Context) {
 
 	var food models.FoodMySql
+	// foodImages := models.FoodImage{}
 
 	err := c.Bind(&food)
 
@@ -31,8 +32,8 @@ func CreateFood(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message1": err.Error()})
 		return
 	}
-	imageAddress, err := common.UploadFile(c)
-	food.ImageAddress = &imageAddress
+	imageAddresses, err := common.UploadFiles(c)
+	// food.ImageAddress = &imageAddress
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message2": "1"})
@@ -40,7 +41,7 @@ func CreateFood(c *gin.Context) {
 	}
 
 	foodRepository := mysqlRepositories.NewFoodMySqlRepository()
-	reuslt, err := foodRepository.Insert(food)
+	reuslt, err := foodRepository.Insert(food, imageAddresses)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
