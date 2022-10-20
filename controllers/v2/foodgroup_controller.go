@@ -1,6 +1,7 @@
 package controllersv2
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -74,8 +75,14 @@ func DeleteFoodGroup(c *gin.Context) {
 // @Success 200
 // @Router /v2/foodgroup [Get]
 func GetFoodGroups(c *gin.Context) {
+	pagination := models.Pagination{}
+	err := c.BindQuery(&pagination)
+
+	log.Println(pagination.Page)
+	log.Println(pagination.PageCount)
+
 	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
-	foodGroups, err := foodGRoupRepository.GetAll()
+	foodGroups, err := foodGRoupRepository.GetAll(pagination.Page*pagination.PageCount, pagination.PageCount)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"message": err.Error()})
 	}

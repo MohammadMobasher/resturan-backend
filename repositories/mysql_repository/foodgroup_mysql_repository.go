@@ -2,6 +2,7 @@ package mysql_database
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/MohammadMobasher/resturan-backend/config"
@@ -45,8 +46,8 @@ func (f *FoodGroupMySqlRepository) GetItem(foodgroupId int64) (models.FoodGroupM
 
 }
 
-func (f *FoodGroupMySqlRepository) GetAll() ([]models.FoodGroupMySql, error) {
-	q := "SELECT * FROM food_group"
+func (f *FoodGroupMySqlRepository) GetAll(skip int, take int) ([]models.FoodGroupMySql, error) {
+	q := "SELECT * FROM food_group LIMIT " + fmt.Sprint(take) + " OFFSET " + fmt.Sprint(skip)
 
 	items, err := f.db.Query(q)
 
