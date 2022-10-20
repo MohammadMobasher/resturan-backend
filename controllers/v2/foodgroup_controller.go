@@ -71,6 +71,8 @@ func DeleteFoodGroup(c *gin.Context) {
 // @Tags food group
 // @Accept */*
 // @Produce json
+// @Param        page  query   integer false  "page"
+// @Param        pagecount    query     integer    false  "pagecount"
 // @Success 200
 // @Router /v2/foodgroup [Get]
 func GetFoodGroups(c *gin.Context) {

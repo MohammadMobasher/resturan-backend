@@ -222,6 +222,20 @@ const docTemplate = `{
                     "food group"
                 ],
                 "summary": "Get all food group",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pagecount",
+                        "name": "pagecount",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
