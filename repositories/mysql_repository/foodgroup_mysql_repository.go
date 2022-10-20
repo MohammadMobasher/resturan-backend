@@ -46,11 +46,17 @@ func (f *FoodGroupMySqlRepository) GetItem(foodgroupId int64) (models.FoodGroupM
 
 }
 
-func (f *FoodGroupMySqlRepository) GetAll(skip int, take int) ([]models.FoodGroupMySql, error) {
+func (f *FoodGroupMySqlRepository) GetAll(skip int, take int) ([]models.FoodGroupMySql, int, error) {
 	q := "SELECT * FROM food_group LIMIT " + fmt.Sprint(take) + " OFFSET " + fmt.Sprint(skip)
-
+	countQuery := "SELECT count(*) FROM food_group"
+	var count int
 	items, err := f.db.Query(q)
 
+	if err != nil {
+		panic(err.Error())
+	}
+
+	err = f.db.QueryRow(countQuery).Scan(&count)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -63,12 +69,12 @@ func (f *FoodGroupMySqlRepository) GetAll(skip int, take int) ([]models.FoodGrou
 		var foodGroup models.FoodGroupMySql
 		err = items.Scan(&foodGroup.Id, &foodGroup.Name, &foodGroup.ImageAddress)
 		if err != nil {
-			return nil, err
+			return nil, 0, err
 		}
 		finalResult = append(finalResult, foodGroup)
 	}
 
-	return finalResult, nil
+	return finalResult, count, nil
 
 }
 

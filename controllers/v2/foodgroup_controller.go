@@ -82,11 +82,15 @@ func GetFoodGroups(c *gin.Context) {
 	log.Println(pagination.PageCount)
 
 	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
-	foodGroups, err := foodGRoupRepository.GetAll(pagination.Page*pagination.PageCount, pagination.PageCount)
+	foodGroups, count, err := foodGRoupRepository.GetAll(pagination.Page*pagination.PageCount, pagination.PageCount)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"message": err.Error()})
 	}
-	c.IndentedJSON(http.StatusOK, foodGroups)
+	c.IndentedJSON(http.StatusOK,
+		models.PagedResult{
+			TotalCount: count,
+			Items:      foodGroups,
+		})
 }
 
 // @Summary Get a food group
