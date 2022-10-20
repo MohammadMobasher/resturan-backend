@@ -1,7 +1,6 @@
 package controllersv2
 
 import (
-	"log"
 	"net/http"
 	"strconv"
 
@@ -78,13 +77,10 @@ func GetFoodGroups(c *gin.Context) {
 	pagination := models.Pagination{}
 	err := c.BindQuery(&pagination)
 
-	log.Println(pagination.Page)
-	log.Println(pagination.PageCount)
-
 	foodGRoupRepository := mysqlRepositories.NewFoodGroupMySqlRepository()
 	foodGroups, count, err := foodGRoupRepository.GetAll(pagination.Page*pagination.PageCount, pagination.PageCount)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"message": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 	}
 	c.IndentedJSON(http.StatusOK,
 		models.PagedResult{
