@@ -32,7 +32,7 @@ func NewFoodMySqlRepository() *FoodMySqlRepository {
 }
 
 func (f *FoodMySqlRepository) Insert(food models.FoodMySql, images []string) (*models.FoodMySql, error) {
-	q := "INSERT INTO food(Name, FoodGroupId, ImageAddress) VALUES(?, ?)"
+	q := "INSERT INTO food(Name, FoodGroupId) VALUES(?, ?)"
 	insert, err := f.db.Prepare(q)
 	if err != nil {
 		log.Println(err)
