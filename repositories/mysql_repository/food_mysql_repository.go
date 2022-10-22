@@ -166,8 +166,14 @@ func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error)
 				food.Name,
 				food_group.Id,
 				food_group.Name,
-				food_group.ImageAddress
-	 		from food INNER JOIN food_group on food.FoodGroupId = food_group.Id WHERE food.Id = ? `
+				food_group.ImageAddress,
+				resturan.Id,
+				resturan.Name,
+				resturan.Description
+	 		from food 
+			INNER JOIN food_group on food.FoodGroupId = food_group.Id 
+			INNER JOIN resturan on food.ResturanId = resturan.Id
+			WHERE food.Id = ? `
 	q_images := `SELECT food_image.ImageAddress FROM food_image WHERE food_image.FoodId = ` + fmt.Sprint(foodId)
 	// q := "SELECT * FROM food LIMIT " + fmt.Sprint(take) + " OFFSET " + fmt.Sprint(skip)
 	// imageQuery := "SELECT * FROM food_image WHERE FoodId = ? ORDER BY Id LIMIT 1"
@@ -181,7 +187,15 @@ func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error)
 		return food, err
 	}
 
-	err = getItem.QueryRow(foodId).Scan(&food.Id, &food.Name, &food.FoodGroup.Id, &food.FoodGroup.Name, &food.FoodGroup.ImageAddress)
+	err = getItem.QueryRow(foodId).Scan(
+		&food.Id,
+		&food.Name,
+		&food.FoodGroup.Id,
+		&food.FoodGroup.Name,
+		&food.FoodGroup.ImageAddress,
+		&food.Resturan.Id,
+		&food.Resturan.Name,
+		&food.Resturan.Description)
 	getItem.Close()
 
 	for images.Next() {
