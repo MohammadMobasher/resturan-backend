@@ -90,6 +90,27 @@ paths:
       tags:
       - user
   /v2/food:
+    get:
+      consumes:
+      - '*/*'
+      description: Get all food
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: integer
+      - description: pagecount
+        in: query
+        name: pagecount
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get all food
+      tags:
+      - food
     post:
       consumes:
       - '*/*'
@@ -113,6 +134,19 @@ paths:
         "200":
           description: OK
       summary: create a food
+      tags:
+      - food
+  /v2/food/:foodId:
+    get:
+      consumes:
+      - '*/*'
+      description: Get a food
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get a food
       tags:
       - food
   /v2/food/:id:
@@ -226,6 +260,19 @@ paths:
       summary: Get a food group
       tags:
       - food group
+  /v2/users:
+    get:
+      consumes:
+      - '*/*'
+      description: Get all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get all users.
+      tags:
+      - user
 schemes:
 - http
 swagger: "2.0"

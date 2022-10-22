@@ -142,6 +142,38 @@ const docTemplate = `{
             }
         },
         "/v2/food": {
+            "get": {
+                "description": "Get all food",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food"
+                ],
+                "summary": "Get all food",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pagecount",
+                        "name": "pagecount",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "post": {
                 "description": "create a food",
                 "consumes": [
@@ -174,6 +206,26 @@ const docTemplate = `{
                         "in": "formData"
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v2/food/:foodId": {
+            "get": {
+                "description": "Get a food",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food"
+                ],
+                "summary": "Get a food",
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -344,6 +396,26 @@ const docTemplate = `{
                     "food group"
                 ],
                 "summary": "delete a food group",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v2/users": {
+            "get": {
+                "description": "Get all users",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get all users.",
                 "responses": {
                     "200": {
                         "description": "OK"
