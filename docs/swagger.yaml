@@ -14,6 +14,18 @@ info:
   version: "1.0"
 paths:
   /v1/foodgroup:
+    get:
+      consumes:
+      - '*/*'
+      description: Get all food group
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get all food group
+      tags:
+      - food group
     post:
       consumes:
       - '*/*'
@@ -320,6 +332,56 @@ paths:
       summary: delete a resturan
       tags:
       - resturan
+  /v2/user:
+    get:
+      consumes:
+      - '*/*'
+      description: get a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: get a user
+      tags:
+      - user
+    post:
+      consumes:
+      - '*/*'
+      description: create a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: create a user
+      tags:
+      - user
+    put:
+      consumes:
+      - '*/*'
+      description: put a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: put a user
+      tags:
+      - user
+  /v2/user/:userId:
+    delete:
+      consumes:
+      - '*/*'
+      description: delete a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: delete a user
+      tags:
+      - user
   /v2/users:
     get:
       consumes:
