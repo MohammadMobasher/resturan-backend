@@ -2,6 +2,7 @@ package mysql_database
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/MohammadMobasher/resturan-backend/config"
@@ -31,14 +32,14 @@ func NewFoodMySqlRepository() *FoodMySqlRepository {
 }
 
 func (f *FoodMySqlRepository) Insert(food models.FoodMySql, images []string) (*models.FoodMySql, error) {
-	q := "INSERT INTO food(Name, FoodGroupId, ImageAddress) VALUES(?, ?, ?)"
+	q := "INSERT INTO food(Name, FoodGroupId, ImageAddress) VALUES(?, ?)"
 	insert, err := f.db.Prepare(q)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	resp, err := insert.Exec(food.Name, food.FoodGroupId, food.ImageAddress)
+	resp, err := insert.Exec(food.Name, food.FoodGroupId)
 	insert.Close()
 
 	if err != nil {
@@ -107,5 +108,52 @@ func (f *FoodMySqlRepository) Delete(id int64) (bool, error) {
 	}
 
 	return true, nil
+
+}
+
+func (f *FoodMySqlRepository) GetAll(skip int, take int) ([]models.FoodMySqlDTO, int, error) {
+	q := `SELECT f1.Id, f1.Name, f1.FoodGroupId, fi1.ImageAddress FROM food as f1
+			LEFT JOIN food_image as fi1 ON fi1.Id = (select Id from food_image as fi2 where f1.Id = fi2.FoodId limit 1)
+			LIMIT ` + fmt.Sprint(take) + " OFFSET " + fmt.Sprint(skip)
+	// q := "SELECT * FROM food LIMIT " + fmt.Sprint(take) + " OFFSET " + fmt.Sprint(skip)
+	// imageQuery := "SELECT * FROM food_image WHERE FoodId = ? ORDER BY Id LIMIT 1"
+	countQuery := "SELECT count(*) FROM food"
+	var count int
+
+	items, err := f.db.Query(q)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	err = f.db.QueryRow(countQuery).Scan(&count)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	// images, err := f.db.Query(imageQuery)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer items.Close()
+	// defer images.Close()
+
+	var finalResult = []models.FoodMySqlDTO{}
+
+	for items.Next() {
+		var food models.FoodMySqlDTO
+		var image *string
+		err = items.Scan(&food.Id, &food.Name, &food.FoodGroupId, &image)
+		if err != nil {
+			return nil, 0, err
+		}
+		// food.Images = append(food.Images, image)
+		food.Images = image
+		finalResult = append(finalResult, food)
+	}
+
+	return finalResult, count, nil
 
 }
