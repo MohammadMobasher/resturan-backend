@@ -102,7 +102,7 @@ func DeleteResturan(c *gin.Context) {
 // @Produce json
 // @Param        Id    query     integer    false  "resturan id"
 // @Param        Name  query   string false  "resturan name"
-// @Param        Description  string   file false  "resturan description"
+// @Param        Description query  string  false  "resturan description"
 // @Success 200
 // @Router /v2/resturan [PUT]
 func UpdateResturan(c *gin.Context) {
