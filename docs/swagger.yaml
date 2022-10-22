@@ -261,6 +261,27 @@ paths:
       tags:
       - food group
   /v2/resturan:
+    get:
+      consumes:
+      - '*/*'
+      description: Get all resturan
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: integer
+      - description: pagecount
+        in: query
+        name: pagecount
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get all resturan
+      tags:
+      - resturan
     post:
       consumes:
       - '*/*'

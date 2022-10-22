@@ -404,6 +404,38 @@ const docTemplate = `{
             }
         },
         "/v2/resturan": {
+            "get": {
+                "description": "Get all resturan",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resturan"
+                ],
+                "summary": "Get all resturan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pagecount",
+                        "name": "pagecount",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "post": {
                 "description": "create a resturan",
                 "consumes": [
