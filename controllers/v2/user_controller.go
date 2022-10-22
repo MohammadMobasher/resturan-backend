@@ -60,7 +60,7 @@ func DeleteUser(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v1/users [get]
+// @Router /v2/users [get]
 func GetUsers(c *gin.Context) {
 	userRepository := mysqlRepositories.NewUserMySqlRepository()
 	users, err := userRepository.GetAll()
