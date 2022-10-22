@@ -260,6 +260,19 @@ paths:
       summary: Get a food group
       tags:
       - food group
+  /v2/resturan:
+    post:
+      consumes:
+      - '*/*'
+      description: create a resturan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: create a resturan
+      tags:
+      - resturan
   /v2/users:
     get:
       consumes:

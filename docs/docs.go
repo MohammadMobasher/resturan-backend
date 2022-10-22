@@ -403,6 +403,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/v2/resturan": {
+            "post": {
+                "description": "create a resturan",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resturan"
+                ],
+                "summary": "create a resturan",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/v2/users": {
             "get": {
                 "description": "Get all users",
