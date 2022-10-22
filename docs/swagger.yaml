@@ -294,6 +294,19 @@ paths:
       summary: create a resturan
       tags:
       - resturan
+  /v2/resturan/:resturanId:
+    delete:
+      consumes:
+      - '*/*'
+      description: delete a resturan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: delete a resturan
+      tags:
+      - resturan
   /v2/users:
     get:
       consumes:

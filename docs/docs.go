@@ -455,6 +455,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/v2/resturan/:resturanId": {
+            "delete": {
+                "description": "delete a resturan",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resturan"
+                ],
+                "summary": "delete a resturan",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/v2/users": {
             "get": {
                 "description": "Get all users",
