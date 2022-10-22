@@ -70,6 +70,7 @@ func DeleteFood(c *gin.Context) {
 	result, err := foodRepository.Delete(id)
 	if err != nil && result {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "The food removed successfully"})
@@ -101,9 +102,25 @@ func GetFoods(c *gin.Context) {
 		})
 }
 
-// {
-//     "message": "sql: Scan error on column index 3, name \"ImageAddress\": unsupported Scan, storing driver.Value type <nil> into type *[]models.FoodImageMySql"
-// }{
-//     "totalcount": 0,
-//     "items": null
-// }
+// @Summary Get a food
+// @Description Get a food
+// @Tags food
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v2/food/:foodId [Get]
+func GetFood(c *gin.Context) {
+	foodId, err := strconv.ParseInt(c.Param("foodId"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	foodGRoupRepository := mysqlRepositories.NewFoodMySqlRepository()
+	result, err := foodGRoupRepository.GetItem(foodId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, result)
+}

@@ -150,10 +150,54 @@ func (f *FoodMySqlRepository) GetAll(skip int, take int) ([]models.FoodMySqlDTO,
 			return nil, 0, err
 		}
 		// food.Images = append(food.Images, image)
-		food.Images = image
+		food.Image = image
 		finalResult = append(finalResult, food)
 	}
 
 	return finalResult, count, nil
+
+}
+
+func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error) {
+	var food models.FoodMySqlDTO
+
+	q := ` SELECT 
+				food.Id,
+				food.Name,
+				food_group.Id,
+				food_group.Name,
+				food_group.ImageAddress
+	 		from food INNER JOIN food_group on food.FoodGroupId = food_group.Id WHERE food.Id = ? `
+	q_images := `SELECT food_image.ImageAddress FROM food_image WHERE food_image.FoodId = ` + fmt.Sprint(foodId)
+	// q := "SELECT * FROM food LIMIT " + fmt.Sprint(take) + " OFFSET " + fmt.Sprint(skip)
+	// imageQuery := "SELECT * FROM food_image WHERE FoodId = ? ORDER BY Id LIMIT 1"
+	// q := "SELECT * FROM food_group WHERE ID = ?"
+
+	getItem, err := f.db.Prepare(q)
+	images, err := f.db.Query(q_images)
+
+	if err != nil {
+		log.Println(err)
+		return food, err
+	}
+
+	err = getItem.QueryRow(foodId).Scan(&food.Id, &food.Name, &food.FoodGroup.Id, &food.FoodGroup.Name, &food.FoodGroup.ImageAddress)
+	getItem.Close()
+
+	for images.Next() {
+		var image string
+		err = images.Scan(&image)
+		if err != nil {
+			return food, err
+		}
+		food.Images = append(food.Images, image)
+	}
+
+	if err != nil {
+		log.Println(err)
+		return food, err
+	}
+
+	return food, nil
 
 }
