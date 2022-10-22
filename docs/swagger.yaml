@@ -26,6 +26,19 @@ paths:
       summary: create a food group
       tags:
       - food group
+  /v1/foodgroup/:foodgroupId:
+    delete:
+      consumes:
+      - '*/*'
+      description: delete a food group
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: delete a food group
+      tags:
+      - food group
   /v1/user:
     get:
       consumes:

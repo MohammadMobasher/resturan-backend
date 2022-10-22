@@ -45,6 +45,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/foodgroup/:foodgroupId": {
+            "delete": {
+                "description": "delete a food group",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food group"
+                ],
+                "summary": "delete a food group",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/v1/user": {
             "get": {
                 "description": "get a user",

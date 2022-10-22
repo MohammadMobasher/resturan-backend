@@ -59,7 +59,7 @@ func DeleteFoodGroup(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v2/foodgroup [Get]
+// @Router /v1/foodgroup [Get]
 func GetFoodGroups(c *gin.Context) {
 	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
 	users, err := foodGRoupRepository.GetAll()
