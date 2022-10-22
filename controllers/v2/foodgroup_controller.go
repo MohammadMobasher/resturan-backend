@@ -61,6 +61,7 @@ func DeleteFoodGroup(c *gin.Context) {
 	result, err := foodGRoupRepository.Delete(id)
 	if err != nil && result {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "The foodGroup removed successfully"})
@@ -83,6 +84,7 @@ func GetFoodGroups(c *gin.Context) {
 	foodGroups, count, err := foodGRoupRepository.GetAll(pagination.Page*pagination.PageCount, pagination.PageCount)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+		return
 	}
 	c.IndentedJSON(http.StatusOK,
 		models.PagedResult{
@@ -108,6 +110,7 @@ func GetFoodGroup(c *gin.Context) {
 	result, err := foodGRoupRepository.GetItem(foodgroupId)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
 	}
 
 	c.IndentedJSON(http.StatusOK, result)
