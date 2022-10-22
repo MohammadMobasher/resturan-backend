@@ -16,7 +16,7 @@ import (
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v1/user [post]
+// @Router /v2/user [post]
 func CreateUser(c *gin.Context) {
 	var user models.UserMySql
 	err := c.ShouldBindJSON(&user)
@@ -42,7 +42,7 @@ func CreateUser(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v1/user/:userId [delete]
+// @Router /v2/user/:userId [delete]
 func DeleteUser(c *gin.Context) {
 	userId := c.Param("userId")
 	userRepository := mysqlRepositories.NewUserMySqlRepository()
@@ -76,7 +76,7 @@ func GetUsers(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v1/user [put]
+// @Router /v2/user [put]
 func UpdateUsers(c *gin.Context) {
 	user := models.UserMySql{}
 	err := c.ShouldBindJSON(&user)
@@ -101,7 +101,7 @@ func UpdateUsers(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v1/user [get]
+// @Router /v2/user [get]
 func GetUser(c *gin.Context) {
 	userId, err := strconv.ParseInt(c.Param("userId"), 10, 64)
 	if err != nil {
