@@ -2,6 +2,7 @@ package mysql_database
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/MohammadMobasher/resturan-backend/config"
@@ -56,4 +57,35 @@ func (f *ResturanMySqlRepository) Insert(resturan models.ResturanMySql) (*models
 	resturan.Id = lastInsertId
 
 	return &resturan, nil
+}
+
+func (f *ResturanMySqlRepository) GetAll(skip int, take int) ([]models.ResturanMySql, int, error) {
+	q := `SELECT * FROM resturan LIMIT ` + fmt.Sprint(take) + " OFFSET " + fmt.Sprint(skip)
+	countQuery := "SELECT count(*) FROM resturan"
+	var count int
+
+	items, err := f.db.Query(q)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	err = f.db.QueryRow(countQuery).Scan(&count)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	var finalResult = []models.ResturanMySql{}
+
+	for items.Next() {
+		var resturan models.ResturanMySql
+		err = items.Scan(&resturan.Id, &resturan.Name, &resturan.Description)
+		if err != nil {
+			return nil, 0, err
+		}
+		finalResult = append(finalResult, resturan)
+	}
+
+	return finalResult, count, nil
+
 }

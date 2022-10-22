@@ -42,3 +42,29 @@ func CreateResturan(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, reuslt)
 }
+
+// @Summary Get all resturan
+// @Description Get all resturan
+// @Tags resturan
+// @Accept */*
+// @Produce json
+// @Param        page  query   integer false  "page"
+// @Param        pagecount    query     integer    false  "pagecount"
+// @Success 200
+// @Router /v2/resturan [Get]
+func GetResturans(c *gin.Context) {
+	pagination := models.Pagination{}
+	err := c.BindQuery(&pagination)
+
+	foodGRoupRepository := mysqlRepositories.NewResturanMySqlRepository()
+	foodGroups, count, err := foodGRoupRepository.GetAll(pagination.Page*pagination.PageCount, pagination.PageCount)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+		return
+	}
+	c.IndentedJSON(http.StatusOK,
+		models.PagedResult{
+			TotalCount: count,
+			Items:      foodGroups,
+		})
+}
