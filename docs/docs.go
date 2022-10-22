@@ -474,6 +474,44 @@ const docTemplate = `{
                     }
                 }
             },
+            "put": {
+                "description": "Update a resturan",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resturan"
+                ],
+                "summary": "Update a resturan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "resturan id",
+                        "name": "Id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "resturan name",
+                        "name": "Name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "resturan description",
+                        "name": "Description",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "post": {
                 "description": "create a resturan",
                 "consumes": [
@@ -494,6 +532,24 @@ const docTemplate = `{
             }
         },
         "/v2/resturan/:resturanId": {
+            "get": {
+                "description": "Get a resturan",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resturan"
+                ],
+                "summary": "Get a resturan",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "delete": {
                 "description": "delete a resturan",
                 "consumes": [

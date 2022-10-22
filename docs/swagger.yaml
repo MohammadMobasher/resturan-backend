@@ -319,6 +319,31 @@ paths:
       summary: create a resturan
       tags:
       - resturan
+    put:
+      consumes:
+      - '*/*'
+      description: Update a resturan
+      parameters:
+      - description: resturan id
+        in: query
+        name: Id
+        type: integer
+      - description: resturan name
+        in: query
+        name: Name
+        type: string
+      - description: resturan description
+        in: query
+        name: Description
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Update a resturan
+      tags:
+      - resturan
   /v2/resturan/:resturanId:
     delete:
       consumes:
@@ -330,6 +355,18 @@ paths:
         "200":
           description: OK
       summary: delete a resturan
+      tags:
+      - resturan
+    get:
+      consumes:
+      - '*/*'
+      description: Get a resturan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get a resturan
       tags:
       - resturan
   /v2/user:
