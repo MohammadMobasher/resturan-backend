@@ -89,3 +89,24 @@ func (f *ResturanMySqlRepository) GetAll(skip int, take int) ([]models.ResturanM
 	return finalResult, count, nil
 
 }
+
+func (f *ResturanMySqlRepository) Delete(resturanId int) (bool, error) {
+	q := "DELETE FROM resturan WHERE Id = ?"
+
+	delete, err := f.db.Prepare(q)
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	_, err = delete.Exec(resturanId)
+	delete.Close()
+
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	return true, nil
+
+}

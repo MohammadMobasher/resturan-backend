@@ -2,6 +2,7 @@ package controllersv2
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/MohammadMobasher/resturan-backend/models"
 	mysqlRepositories "github.com/MohammadMobasher/resturan-backend/repositories/mysql_repository"
@@ -67,4 +68,29 @@ func GetResturans(c *gin.Context) {
 			TotalCount: count,
 			Items:      foodGroups,
 		})
+}
+
+// @Summary delete a resturan
+// @Description delete a resturan
+// @Tags resturan
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v2/resturan/:resturanId [delete]
+func DeleteResturan(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("resturanId"))
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	foodGRoupRepository := mysqlRepositories.NewResturanMySqlRepository()
+	result, err := foodGRoupRepository.Delete(id)
+	if err != nil && result {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "The resturan removed successfully"})
 }
