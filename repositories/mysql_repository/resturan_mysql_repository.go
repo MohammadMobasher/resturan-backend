@@ -31,6 +31,29 @@ func NewResturanMySqlRepository() *ResturanMySqlRepository {
 	}
 }
 
+func (f *ResturanMySqlRepository) GetItem(resturanId int64) (models.ResturanMySql, error) {
+	var resturan models.ResturanMySql
+
+	q := "SELECT * FROM resturan WHERE ID = ?"
+
+	getItem, err := f.db.Prepare(q)
+
+	if err != nil {
+		log.Println(err)
+		return resturan, err
+	}
+
+	err = getItem.QueryRow(resturanId).Scan(&resturan.Id, &resturan.Name, &resturan.Description)
+
+	if err != nil {
+		log.Println(err)
+		return resturan, err
+	}
+
+	return resturan, nil
+
+}
+
 func (f *ResturanMySqlRepository) Insert(resturan models.ResturanMySql) (*models.ResturanMySql, error) {
 	q := "INSERT INTO resturan(Name, Description) VALUES(?, ?)"
 	insert, err := f.db.Prepare(q)
@@ -109,4 +132,25 @@ func (f *ResturanMySqlRepository) Delete(resturanId int) (bool, error) {
 
 	return true, nil
 
+}
+
+func (f *ResturanMySqlRepository) Update(obj models.ResturanMySql) (models.ResturanMySql, error) {
+	var resturan models.ResturanMySql
+	q := "UPDATE resturan SET Name = ?, Description = ? WHERE Id = ?"
+
+	update, err := f.db.Prepare(q)
+	if err != nil {
+		log.Println(err)
+		return resturan, err
+	}
+
+	_, err = update.Exec(obj.Name, obj.Description, obj.Id)
+	update.Close()
+
+	if err != nil {
+		log.Println(err)
+		return resturan, err
+	}
+
+	return f.GetItem(obj.Id)
 }

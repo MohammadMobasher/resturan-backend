@@ -57,8 +57,8 @@ func GetResturans(c *gin.Context) {
 	pagination := models.Pagination{}
 	err := c.BindQuery(&pagination)
 
-	foodGRoupRepository := mysqlRepositories.NewResturanMySqlRepository()
-	foodGroups, count, err := foodGRoupRepository.GetAll(pagination.Page*pagination.PageCount, pagination.PageCount)
+	resturanRepository := mysqlRepositories.NewResturanMySqlRepository()
+	foodGroups, count, err := resturanRepository.GetAll(pagination.Page*pagination.PageCount, pagination.PageCount)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
@@ -85,12 +85,64 @@ func DeleteResturan(c *gin.Context) {
 		return
 	}
 
-	foodGRoupRepository := mysqlRepositories.NewResturanMySqlRepository()
-	result, err := foodGRoupRepository.Delete(id)
+	resturanRepository := mysqlRepositories.NewResturanMySqlRepository()
+	result, err := resturanRepository.Delete(id)
 	if err != nil && result {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "The resturan removed successfully"})
+}
+
+// @Summary Update a resturan
+// @Description Update a resturan
+// @Tags resturan
+// @Accept */*
+// @Produce json
+// @Param        Id    query     integer    false  "resturan id"
+// @Param        Name  query   string false  "resturan name"
+// @Param        Description  string   file false  "resturan description"
+// @Success 200
+// @Router /v2/resturan [PUT]
+func UpdateResturan(c *gin.Context) {
+	resturan := models.ResturanMySql{}
+	err := c.Bind(&resturan)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	resturanRepository := mysqlRepositories.NewResturanMySqlRepository()
+	resturans, err := resturanRepository.Update(resturan)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	c.IndentedJSON(http.StatusOK, resturans)
+}
+
+// @Summary Get a resturan
+// @Description Get a resturan
+// @Tags resturan
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v2/resturan/:resturanId [Get]
+func GetResturan(c *gin.Context) {
+	resturanId, err := strconv.ParseInt(c.Param("resturanId"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	resturanRepository := mysqlRepositories.NewResturanMySqlRepository()
+	result, err := resturanRepository.GetItem(resturanId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, result)
 }
