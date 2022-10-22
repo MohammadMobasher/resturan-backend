@@ -36,6 +36,7 @@ type FoodMySqlDTO struct {
 	Id          int64          `json:"id,omitempty" bson:"id,omitempty"`
 	Name        string         `json:"name,omzitempty" bson:"name,omitempty" binding:"required"`
 	FoodGroupId int64          `json:"foodgroupid"  bson:"foodgroupid,omitempty" binding:"required"`
+	ResturanId  int64          `json:"resturanid"  bson:"resturanid,omitempty"`
 	Image       *string        `json:"image"  bson:"image"`
 	Images      []string       `json:"images"  bson:"images"`
 	FoodGroup   FoodGroupMySql `json:"foodgroup" bson:"foodgroup"`

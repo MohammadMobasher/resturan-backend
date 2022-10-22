@@ -164,6 +164,8 @@ func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error)
 	q := ` SELECT 
 				food.Id,
 				food.Name,
+				food.FoodGroupId,
+				food.ResturanId,
 				food_group.Id,
 				food_group.Name,
 				food_group.ImageAddress,
@@ -190,6 +192,8 @@ func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error)
 	err = getItem.QueryRow(foodId).Scan(
 		&food.Id,
 		&food.Name,
+		&food.FoodGroupId,
+		&food.ResturanId,
 		&food.FoodGroup.Id,
 		&food.FoodGroup.Name,
 		&food.FoodGroup.ImageAddress,
