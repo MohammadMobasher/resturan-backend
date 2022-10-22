@@ -41,7 +41,7 @@ func CreateFoodGroup(c *gin.Context) {
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v2/foodgroup/:foodgroupId [delete]
+// @Router /v1/foodgroup/:foodgroupId [delete]
 func DeleteFoodGroup(c *gin.Context) {
 	foodGroupId := c.Param("foodgroupId")
 	foodGRoupRepository := mongoRepositories.NewFoodGroupRepository()
