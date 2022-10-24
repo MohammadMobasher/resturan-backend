@@ -5,27 +5,6 @@ import (
 	"reflect"
 )
 
-// func main() {
-
-// 	// source := testClass{
-// 	// 	Id:   1,
-// 	// 	Name: "mohammad1",
-// 	// }
-
-// 	source := struct {
-// 		Children []testClass
-// 	}{}
-
-// 	source.Children = []testClass{
-// 		{Id: 1, Name: "m1"},
-// 		{Id: 2, Name: "m2"},
-// 	}
-
-// 	des := Map[struct{ Children []testClass2 }](source)
-// 	fmt.Println(des)
-
-// }
-
 func Map[T any](source any) T {
 
 	var dest *T = new(T)
