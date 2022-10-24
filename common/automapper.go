@@ -143,14 +143,3 @@ func valueIsContainedInNilEmbeddedType(source reflect.Value, fieldName string) b
 func valueIsNil(value reflect.Value) bool {
 	return value.Type().Kind() == reflect.Ptr && value.IsNil()
 }
-
-type testClass struct {
-	Id   int
-	Name string
-}
-
-type testClass2 struct {
-	Id     int
-	Name   string
-	Family string
-}
