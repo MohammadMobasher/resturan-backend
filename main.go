@@ -38,7 +38,7 @@ func main() {
 	// r := mysql_database.NewFoodGroupMySqlRepository()
 	// r.Insert(foodGroup)
 
-	// createServer()
+	createServer()
 
 }
 
