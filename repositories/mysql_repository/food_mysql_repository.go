@@ -177,12 +177,14 @@ func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error)
 			INNER JOIN resturan on food.ResturanId = resturan.Id
 			WHERE food.Id = ? `
 	q_images := `SELECT food_image.ImageAddress FROM food_image WHERE food_image.FoodId = ` + fmt.Sprint(foodId)
+	q_comments := `SELECT * FROM food_comment WHERE food_comment.FoodId = ? `
 	// q := "SELECT * FROM food LIMIT " + fmt.Sprint(take) + " OFFSET " + fmt.Sprint(skip)
 	// imageQuery := "SELECT * FROM food_image WHERE FoodId = ? ORDER BY Id LIMIT 1"
 	// q := "SELECT * FROM food_group WHERE ID = ?"
 
 	getItem, err := f.db.Prepare(q)
 	images, err := f.db.Query(q_images)
+	comments, err := f.db.Query(q_comments, foodId)
 
 	if err != nil {
 		log.Println(err)
@@ -214,6 +216,15 @@ func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error)
 	if err != nil {
 		log.Println(err)
 		return food, err
+	}
+
+	for comments.Next() {
+		var comment models.FoodCommentMySql
+		err = comments.Scan(&comment.Id, &comment.FoodId, &comment.Comment)
+		if err != nil {
+			return food, err
+		}
+		food.Comments = append(food.Comments, comment)
 	}
 
 	return food, nil
