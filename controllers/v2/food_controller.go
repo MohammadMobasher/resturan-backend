@@ -158,3 +158,40 @@ func CreateFoodComment(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, true)
 }
+
+// @Summary Get Comments
+// @Description Get Comments
+// @Tags food
+// @Accept */*
+// @Produce json
+// @Param        page  query   integer false  "page"
+// @Param        pagecount    query     integer    false  "pagecount"
+// @Success 200
+// @Router /v2/food/comment/:foodId [Get]
+func GetComments(c *gin.Context) {
+	foodId, err := strconv.ParseInt(c.Param("foodId"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	pagination := models.Pagination{}
+	err = c.BindQuery(&pagination)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	foodRepository := mysqlRepositories.NewFoodMySqlRepository()
+	items, count, err := foodRepository.GetComments(foodId, pagination.Page*pagination.PageCount, pagination.PageCount)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK,
+		models.PagedResult{
+			TotalCount: count,
+			Items:      items,
+		})
+}

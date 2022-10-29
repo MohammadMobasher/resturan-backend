@@ -240,3 +240,49 @@ func (f *FoodMySqlRepository) CreateComment(foodComment models.FoodCommentMySql)
 	return true, nil
 
 }
+
+func (f *FoodMySqlRepository) GetComments(foodId int64, skip int, take int) ([]models.FoodCommentMySql, int, error) {
+	log.Println(skip)
+	log.Println(take)
+	q := "SELECT * FROM food_comment WHERE FoodId = ? LIMIT ? OFFSET ? "
+	var finalResult = []models.FoodCommentMySql{}
+
+	countQuery := "SELECT count(*) FROM food_comment where FoodId = ? "
+	var count int
+
+	err := f.db.QueryRow(countQuery, foodId).Scan(&count)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	insert, err := f.db.Prepare(q)
+	if err != nil {
+		log.Println(err)
+		return nil, 0, err
+	}
+
+	items, err := insert.Query(foodId, take, skip)
+	insert.Close()
+
+	if err != nil {
+		log.Println(err)
+		return nil, 0, err
+	}
+
+	for items.Next() {
+		var item models.FoodCommentMySql
+		err = items.Scan(&item.Id, &item.FoodId, &item.Comment)
+		if err != nil {
+			return nil, 0, err
+		}
+		finalResult = append(finalResult, item)
+	}
+
+	if err != nil {
+		log.Println(err)
+		return nil, 0, err
+	}
+
+	return finalResult, count, nil
+
+}
