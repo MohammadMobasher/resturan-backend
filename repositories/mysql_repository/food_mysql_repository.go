@@ -219,3 +219,24 @@ func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error)
 	return food, nil
 
 }
+
+func (f *FoodMySqlRepository) CreateComment(foodComment models.FoodCommentMySql) (bool, error) {
+	q := "INSERT INTO food_comment(FoodId, Comment) VALUES(?, ?)"
+
+	insert, err := f.db.Prepare(q)
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	_, err = insert.Exec(foodComment.FoodId, foodComment.Comment)
+	insert.Close()
+
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+
+	return true, nil
+
+}

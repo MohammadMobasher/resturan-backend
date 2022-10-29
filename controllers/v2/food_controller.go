@@ -1,6 +1,7 @@
 package controllersv2
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -123,4 +124,37 @@ func GetFood(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, result)
+}
+
+// @Summary Create food Comment
+// @Description Create food Comment
+// @Tags food
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v2/food/comment/:foodId [Post]
+func CreateFoodComment(c *gin.Context) {
+	var foodComment models.FoodCommentMySql
+
+	foodId, err := strconv.ParseInt(c.Param("foodId"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	log.Println(foodId)
+	foodComment.FoodId = foodId
+	err = c.Bind(&foodComment)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	foodRepository := mysqlRepositories.NewFoodMySqlRepository()
+	_, err = foodRepository.CreateComment(foodComment)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, true)
 }
