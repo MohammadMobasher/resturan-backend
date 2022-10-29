@@ -299,6 +299,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/v2/food/comment/:foodId": {
+            "post": {
+                "description": "Create food Comment",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food"
+                ],
+                "summary": "Create food Comment",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/v2/foodgroup": {
             "get": {
                 "description": "Get all food group",

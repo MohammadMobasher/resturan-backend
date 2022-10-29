@@ -192,6 +192,19 @@ paths:
       summary: delete a food
       tags:
       - food
+  /v2/food/comment/:foodId:
+    post:
+      consumes:
+      - '*/*'
+      description: Create food Comment
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Create food Comment
+      tags:
+      - food
   /v2/foodgroup:
     get:
       consumes:
