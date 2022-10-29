@@ -220,7 +220,7 @@ func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error)
 
 	for comments.Next() {
 		var comment models.FoodCommentMySql
-		err = comments.Scan(&comment.Id, &comment.FoodId, &comment.Comment)
+		err = comments.Scan(&comment.Id, &comment.FoodId, &comment.Comment, &comment.UserId)
 		if err != nil {
 			return food, err
 		}
@@ -232,7 +232,7 @@ func (f *FoodMySqlRepository) GetItem(foodId int64) (models.FoodMySqlDTO, error)
 }
 
 func (f *FoodMySqlRepository) CreateComment(foodComment models.FoodCommentMySql) (bool, error) {
-	q := "INSERT INTO food_comment(FoodId, Comment) VALUES(?, ?)"
+	q := "INSERT INTO food_comment(FoodId, Comment, UserId) VALUES(?, ?, ?)"
 
 	insert, err := f.db.Prepare(q)
 	if err != nil {
@@ -240,7 +240,7 @@ func (f *FoodMySqlRepository) CreateComment(foodComment models.FoodCommentMySql)
 		return false, err
 	}
 
-	_, err = insert.Exec(foodComment.FoodId, foodComment.Comment)
+	_, err = insert.Exec(foodComment.FoodId, foodComment.Comment, foodComment.UserId)
 	insert.Close()
 
 	if err != nil {
@@ -282,7 +282,7 @@ func (f *FoodMySqlRepository) GetComments(foodId int64, skip int, take int) ([]m
 
 	for items.Next() {
 		var item models.FoodCommentMySql
-		err = items.Scan(&item.Id, &item.FoodId, &item.Comment)
+		err = items.Scan(&item.Id, &item.FoodId, &item.Comment, &item.UserId)
 		if err != nil {
 			return nil, 0, err
 		}
