@@ -16,7 +16,7 @@ import (
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v2/resturan [post]
+// @Router /v2/resturan/:resturanId [post]
 func CreateResturan(c *gin.Context) {
 
 	var resturan models.ResturanMySql
@@ -24,12 +24,12 @@ func CreateResturan(c *gin.Context) {
 	err := c.Bind(&resturan)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message1": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message2": "1"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
 
