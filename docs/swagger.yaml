@@ -193,6 +193,27 @@ paths:
       tags:
       - food
   /v2/food/comment/:foodId:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Comments
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: integer
+      - description: pagecount
+        in: query
+        name: pagecount
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get Comments
+      tags:
+      - food
     post:
       consumes:
       - '*/*'
@@ -320,18 +341,6 @@ paths:
       summary: Get all resturan
       tags:
       - resturan
-    post:
-      consumes:
-      - '*/*'
-      description: create a resturan
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-      summary: create a resturan
-      tags:
-      - resturan
     put:
       consumes:
       - '*/*'
@@ -380,6 +389,18 @@ paths:
         "200":
           description: OK
       summary: Get a resturan
+      tags:
+      - resturan
+    post:
+      consumes:
+      - '*/*'
+      description: create a resturan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: create a resturan
       tags:
       - resturan
   /v2/user:

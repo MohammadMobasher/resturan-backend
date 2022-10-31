@@ -300,6 +300,38 @@ const docTemplate = `{
             }
         },
         "/v2/food/comment/:foodId": {
+            "get": {
+                "description": "Get Comments",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "food"
+                ],
+                "summary": "Get Comments",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pagecount",
+                        "name": "pagecount",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "post": {
                 "description": "Create food Comment",
                 "consumes": [
@@ -531,24 +563,6 @@ const docTemplate = `{
                         "description": "OK"
                     }
                 }
-            },
-            "post": {
-                "description": "create a resturan",
-                "consumes": [
-                    "*/*"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "resturan"
-                ],
-                "summary": "create a resturan",
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
             }
         },
         "/v2/resturan/:resturanId": {
@@ -564,6 +578,24 @@ const docTemplate = `{
                     "resturan"
                 ],
                 "summary": "Get a resturan",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "description": "create a resturan",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resturan"
+                ],
+                "summary": "create a resturan",
                 "responses": {
                     "200": {
                         "description": "OK"
